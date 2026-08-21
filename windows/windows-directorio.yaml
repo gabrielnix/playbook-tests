@@ -1,0 +1,10 @@
+---
+- name: Crea carpeta en escritorio de usuario (Windows)
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Crea carpeta en Windows on Windows
+      ansible.windows.win_file:
+        path: "{{ ansible_env.USERPROFILE }}\\Desktop\\NuevoFolderPrueba"
+        state: directory
+...
