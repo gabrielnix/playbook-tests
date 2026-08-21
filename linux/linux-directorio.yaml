@@ -1,0 +1,11 @@
+---
+- name: Crear Directorio en Home del usuario (Linux/macOS)
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Crea carpeta en home
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/MiDirectorioPrueba"
+        state: directory
+        mode: '0755'
+...        
