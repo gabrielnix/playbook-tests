@@ -1,7 +1,7 @@
 ---
-name: pruebas permisos para comandos powershell windows
-hosts: all
-gather_facts: true
+- name: pruebas permisos para comandos powershell windows
+  hosts: all
+  gather_facts: true
 
   tasks:
     - name: Obtener hostname e IP
