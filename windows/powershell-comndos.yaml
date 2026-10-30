@@ -3,15 +3,15 @@ name: pruebas permisos para comandos powershell windows
 hosts: all
 gather_facts: true
 
-   tasks:
-     - name: Obtener hostname e IP
-       win_shell: |
-         $hostname = $env:COMPUTERNAME
-         $ip = (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Ethernet* | Where-Object {$_.IPAddress -notlike '169.*'}).IPAddress
-         @{Nombre=$hostname; IP=$ip} | ConvertTo-Json
-       register: identidad_json
+  tasks:
+    - name: Obtener hostname e IP
+      win_shell: |
+        $hostname = $env:COMPUTERNAME
+        $ip = (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Ethernet* | Where-Object {$_.IPAddress -notlike '169.*'}).IPAddress
+        @{Nombre=$hostname; IP=$ip} | ConvertTo-Json
+      register: identidad_json
 
-     - name: Verificar espacio en disco
-       win_shell: |
-         Get-CimInstance -ClassName Win32_LogicalDisk | Where-Object { $_.DriveType -eq 3 } | Select-Object @{Name='Name';Expression={$_.DeviceID.TrimEnd(':')}}, @{Name='Used';Expression={$_.Size - $_.FreeSpace}}, @{Name='Free';Expression={$_.FreeSpace}}, @{Name='Total';Expression={$_.Size}} | ConvertTo-Json
-       register: discos_json
+    - name: Verificar espacio en disco
+      win_shell: |
+        Get-CimInstance -ClassName Win32_LogicalDisk | Where-Object { $_.DriveType -eq 3 } | Select-Object @{Name='Name';Expression={$_.DeviceID.TrimEnd(':')}}, @{Name='Used';Expression={$_.Size - $_.FreeSpace}}, @{Name='Free';Expression={$_.FreeSpace}}, @{Name='Total';Expression={$_.Size}} | ConvertTo-Json
+      register: discos_json
